@@ -1,31 +1,15 @@
 import express from 'express'
 import fs from 'fs'
-import productsRouter from './routers/products.Router.js'
+import productsRouter from './routers/products.router.js'
+import cartsRouter from './routers/carts.router.js'
 
-const app = express();
-app.use(express.json());
+const app = express(); // crea una instancia de una aplicación de express
+app.use(express.json()); // middleware para parsear el body de las requests a JSON
 
-const PORT = 8080;
+const PORT = 8080; // puerto en el que va a escuchar el servidor
 
- 
-//---------------------------------------------------------------------------------------------------
-
-// console.log("----------------------------- Arranca el programa ------------------------------------")
-
-// const cantidadDeProductosQueQuieroTener = 5 // cantidad de productos que quiero que se agreguen al archivo productos.json
-
-// elimina el archivo productos.json si es que ya existe
-// await fs.promises.unlink('./src/productos.json')
-
-// crea y agrega la cantidad de productos deseada al archivo productos.json
-// for (let i = 1; i <= cantidadDeProductosQueQuieroTener; i++) {
-//     await productManager.addProduct(`Producto ${i}`, `Este es el producto ${i}`, 200, 'Sin imagen', `abc${i}`, 25) // agrega un producto
-// }
-
-// console.log(await productManager.getProducts()) // muestra el array con los productos agregados
-
-// -----------------------------------------------------------------------------------------------------
-app.use('/api/products', productsRouter)
+app.use('/api/products', productsRouter); // registra el router de productos en la ruta /api/products
+app.use('/api/carts', cartsRouter); // registra el router de carritos en la ruta /api/carts
 
 
-app.listen(PORT, () => console.log('server up'))
+app.listen(PORT, () => console.log('server up')) // levanta el servidor en el puerto especificado
