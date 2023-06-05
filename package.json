@@ -1,7 +1,7 @@
 {
   "name": "preentrega1-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "PreEntrega 1 de Backend",
   "main": "src/app.js",
   "type": "module",
   "scripts": {

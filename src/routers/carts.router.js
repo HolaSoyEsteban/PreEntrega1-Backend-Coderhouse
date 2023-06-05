@@ -114,5 +114,41 @@ router.post('/:cid/product/:pid', async (req, res) => {
     }
 });
 
+router.delete('/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+
+        // Leer el archivo de carritos
+        const cartsData = await fs.promises.readFile(filePathCarts, 'utf-8');
+        const carts = JSON.parse(cartsData);
+
+        if (cartId) {
+            // Si se proporciona un ID de carrito, eliminar el carrito específico
+
+            // Buscar el carrito por su ID
+            const cartIndex = carts.findIndex((cart) => cart.id == cartId);
+
+            if (cartIndex === -1) {
+                res.status(404).json({ error: 'Carrito no encontrado' });
+                return;
+            }
+
+            // Eliminar el carrito específico
+            carts.splice(cartIndex, 1);
+
+            // Guardar los cambios en el archivo de carritos
+            await fs.promises.writeFile(filePathCarts, JSON.stringify(carts));
+
+            res.status(200).json({ message: 'Carrito eliminado satisfactoriamente' });
+        } else {
+            // Si no se proporciona un ID de carrito, eliminar todos los carritos
+            await fs.promises.writeFile(filePathCarts, '[]');
+            res.status(200).json({ message: 'Todos los carritos han sido eliminados' });
+        }
+    } catch (error) {
+        console.log('Error al eliminar el carrito:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
 
 export default router;
