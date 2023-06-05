@@ -13,3 +13,5 @@ app.use('/api/carts', cartsRouter); // registra el router de carritos en la ruta
 
 
 app.listen(PORT, () => console.log('server up')) // levanta el servidor en el puerto especificado
+
+// Pre Entrega 1 de Backend - Terminada!
